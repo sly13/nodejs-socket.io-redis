@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -179,8 +179,8 @@
 		.chat-box {
 			position: fixed;
 			bottom: 0;
-			left: 525px;
-			right: 0;
+			left: 578px;
+			right: 146px;
 			padding: 15px;
 			border-top: 1px solid #eee;
 			transition: all .5s ease;
@@ -202,19 +202,25 @@
 		#messageFormArea {
 			display: none;
 		}
+
+		.userFormArea {
+			display: none;
+		}
 	</style>
 </head>
 <body>
 <div class="container bootstrap snippet">
-	<div class="row userFormArea">
-		<form action="" id="userForm">
-			<input type="text" id="userName" autocomplete="off">
-			<button>Send</button>
+	<div class="row userFormArea text-center" style="padding-top: 150px">
+		<h1>Mega Chat</h1>
+		<form action="" id="userForm" class="form-inline">
+			<div class="form-group">
+				<input type="text" id="userName" autocomplete="off" class="form-control" placeholder="Write your name">
+			</div>
+			<button type="submit" class="btn btn-default">Send</button>
 		</form>
 	</div>
 	<div id="messageFormArea" class="row">
-
-		<div class="col-md-4 bg-white" style="background-color: white">
+		<div class="col-md-4 bg-white" style="background-color: white; height: 100vh;">
 			<div class=" row border-bottom padding-sm" style="height: 10px;">
 			</div>
 				<div style="background-color: #f1f5fc; padding: 10px">
@@ -226,8 +232,8 @@
 			</ul>
 		</div>
 
-		<div class="col-md-8 bg-white ">
-			<div class="chat-message">
+		<div class="col-md-8 bg-white">
+			<div class="chat-message" >
 				<ul class="chat">
 				</ul>
 			</div>
@@ -253,7 +259,7 @@
 	var $messageFormArea = $('#messageFormArea');
 	var $messageForm = $('#messageForm');
 	var $message = $('#message');
-	var $userForm = $('#userForm');
+	var $userForm = $('.userFormArea');
 	var $userName = $('#userName');
 	var $users = $('.friend-list');
 
@@ -307,6 +313,10 @@
 		$users.html(html);
 	});
 
+	$( document ).ready(function() {
+		checkCookie();
+	});
+
 	function setCookie(cname, cvalue, exdays) {
 		var d = new Date();
 		d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -329,11 +339,6 @@
 		return "";
 	}
 
-
-	$( document ).ready(function() {
-		checkCookie();
-	});
-
 	function checkCookie() {
 		var user=getCookie("userName");
 		if (user != "") {
@@ -343,9 +348,10 @@
 					$messageFormArea.show();
 				}
 			});
+		} else {
+			$userForm.show();
 		}
 	}
-
 
 </script>
 
